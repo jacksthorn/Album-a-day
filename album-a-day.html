@@ -135,6 +135,7 @@ h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,9vw,4.2rem);font-
   <p class="sub">One album. Chosen for you. Every day.</p>
   <p class="ai-pill"><span class="dot"></span> Powered by Claude AI</p>
   <button class="btn" onclick="show('quiz');renderQ()">Begin your profile</button>
+  <button class="btn-ghost" onclick="localStorage.removeItem('aad_key');API_KEY='';showKeyScreen()">Reset API key</button>
 </div>
 
 <div id="quiz" class="screen">
@@ -285,7 +286,7 @@ let API_KEY = localStorage.getItem('aad_key') || '';
 
 async function callAPI(messages,tools,maxTok=3000){
   if(!API_KEY){ showKeyScreen(); throw new Error('No API key'); }
-  const body={model:'claude-sonnet-4-6',max_tokens:maxTok,messages};
+  const body={model:'claude-sonnet-4-5',max_tokens:maxTok,messages};
   if(tools)body.tools=tools;
   const r=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
